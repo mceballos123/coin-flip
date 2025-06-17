@@ -1,20 +1,22 @@
 # Use a Node.js base image
-FROM node:18-slim
+FROM node:alpine
 
 # Set working directory inside container
-WORKDIR /my-express-app
+WORKDIR /coin_api
 
 # Copy dependencty files first for caching
-COPY package*.json ./
+COPY package.json .
+
+COPY package-lock.json .
 
 # Install dependencies
 RUN npm install
 
 #Copy the rest of the app
-COPY . . 
+COPY server.js .
 
 # Expose port
-EXPOSE 3000
+EXPOSE 5000
 
 # Run the app
 CMD ["node","server.js"]
